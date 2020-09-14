@@ -1,0 +1,12 @@
+{
+  "name": "Animated-Tabbar",
+  "displayName": "Animated-Tabbar",
+  "expo": {
+    "name": "Animated-Tabbar",
+    "slug": "Animated-Tabbar",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
