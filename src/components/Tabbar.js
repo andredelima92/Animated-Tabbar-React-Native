@@ -8,13 +8,10 @@ import {
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import * as shape from "d3-shape";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { StaticTabbar, tabHeight as height } from "./StaticTabbar";
 
-// import { Container } from './styles';
-
-export default function Tabbar() {
+const Tabbar = () => {
   const { width } = Dimensions.get("window");
-  const height = 84;
 
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
@@ -40,6 +37,7 @@ export default function Tabbar() {
     .x((d) => d.x)
     .y((d) => d.y)([
     { x: width + tabWidth, y: 0 },
+    { x: width * 2, y: 0 },
     { x: width * 2, y: height },
     { x: 0, y: height },
     { x: 0, y: 0 },
@@ -62,23 +60,31 @@ export default function Tabbar() {
 
   const d = `${left} ${tab} ${right}`;
 
+  const animatedValue = new Animated.Value(-width);
+
   return (
     <>
       <View {...{ width, height }}>
-        <AnimatedSvg width={width * 2} {...{ height }}>
+        <AnimatedSvg
+          width={width * 2}
+          {...{ height }}
+          style={{ transform: [{ translateX: animatedValue }] }}
+        >
           <Path {...{ d }} fill="white" />
         </AnimatedSvg>
         <View style={StyleSheet.absoluteFill}>
-
+          <StaticTabbar {...{ animatedValue, tabs }} />
         </View>
       </View>
       <SafeAreaView style={styles.safeArea} />
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: "#fff",
   },
 });
+
+export default Tabbar;
